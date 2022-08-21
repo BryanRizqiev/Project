@@ -1,6 +1,40 @@
 @extends('layouts.template')
 
 @section('content')
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add Data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/insert" method="POST">
+                    @csrf
+                    <input type="hidden" id="namaModal" name="nama">
+                    <input type="hidden" id="tglLahirModal" name="tanggal_lahir">
+                    <input type="hidden" id="noBpjsModal" name="no_bpjs">
+                    <input type="hidden" id="ketAktifModal" name="status_bpjs">
+                    <input type="hidden" id="noKtpModal" name="no_ktp">
+                    <input type="hidden" id="namaProviderModal" name="nama_provider">
+                    <div class="form-group mt-3">
+                        <input type="text" class="form-control" name="no_rekam_medis" placeholder="No Rekam Medis"
+                            required>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- ============================================================== -->
 <!-- Page wrapper  -->
 <!-- ============================================================== -->
@@ -16,7 +50,7 @@
             <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                 <div class="d-md-flex">
                     <ol class="breadcrumb ms-auto">
-                        <li><a href="#" class="fw-normal">Dashboard</a></li>
+                        <li><a href="#" class="fw-normal"></a></li>
                     </ol>
                 </div>
             </div>
@@ -30,52 +64,6 @@
     <!-- Container fluid  -->
     <!-- ============================================================== -->
     <div class="container-fluid">
-        <!-- ============================================================== -->
-        <!-- Three charts -->
-        <!-- ============================================================== -->
-        <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-12">
-                <div class="white-box analytics-info">
-                    <h3 class="box-title">Total Visit</h3>
-                    <ul class="list-inline two-part d-flex align-items-center mb-0">
-                        <li>
-                            <div id="sparklinedash"><canvas width="67" height="30"
-                                    style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                            </div>
-                        </li>
-                        <li class="ms-auto"><span class="counter text-success">659</span></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-12">
-                <div class="white-box analytics-info">
-                    <h3 class="box-title">Total Page Views</h3>
-                    <ul class="list-inline two-part d-flex align-items-center mb-0">
-                        <li>
-                            <div id="sparklinedash2"><canvas width="67" height="30"
-                                    style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                            </div>
-                        </li>
-                        <li class="ms-auto"><span class="counter text-purple">869</span></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-12">
-                <div class="white-box analytics-info">
-                    <h3 class="box-title">Unique Visitor</h3>
-                    <ul class="list-inline two-part d-flex align-items-center mb-0">
-                        <li>
-                            <div id="sparklinedash3"><canvas width="67" height="30"
-                                    style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                            </div>
-                        </li>
-                        <li class="ms-auto"><span class="counter text-info">911</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
         <div class="row">
             <div class="col-lg-12">
                 <div class="card white-box p-0">
@@ -84,7 +72,7 @@
                         <div id="msgError"></div>
                         <form id="getDataForm" class="form-inline">
                             <div class="input-group">
-                                <input type="number" name="no_bpjs" id="no_bpjs" class="form-control"
+                                <input type="text" name="no_bpjs" id="no_bpjs" class="form-control"
                                     placeholder="No BPJS">
                                 {{-- <input type="text" class="form-control" placeholder="No Rekam Medis"> --}}
                                 <button type="button" name="getDataButton" id="getDataButton"
@@ -106,148 +94,54 @@
                 <div class="white-box">
                     <div class="table-responsive">
                         <table class="table table-striped" id="tableData" name="tableData">
+
                             <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Tanggal lahir</th>
-                                <th>Status peserta bpjs</th>
-                                <th>NIK</th>
-                                <th>Provider</th>
-                                <th>No rekam medis</th>
-                                <th>Aksi</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Ahmed Dzaki Sandy</td>
-                                <td>Tanggal lahir</td>
-                                <td>Status peserta bpjs</td>
-                                <td>NIK</td>
-                                <td>Provider</td>
-                                <td>No rekam medis</td>
-                                <td>
-                                    <button class="btn btn-outline-info">Insert</button>
-                                </td>
                             </tr>
 
                         </table>
                     </div>
                 </div>
             </div>
-            {{-- <div class="col-lg-4 col-md-12 col-sm-12">
-                <div class="card white-box p-0">
-                    <div class="card-heading">
-                        <h3 class="box-title mb-0">Chat Listing</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul class="chatonline">
-                            <li>
-                                <div class="call-chat">
-                                    <button class="btn btn-success text-white btn-circle btn" type="button">
-                                        <i class="fas fa-phone"></i>
-                                    </button>
-                                    <button class="btn btn-info btn-circle btn" type="button">
-                                        <i class="far fa-comments text-white"></i>
-                                    </button>
-                                </div>
-                                <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                        src="{{ asset('plugins/images/users/varun.jpg') }}" alt="user-img"
-                                        class="img-circle">
-                                    <div class="ms-2">
-                                        <span class="text-dark">Varun Dhavan <small
-                                                class="d-block text-success d-block">online</small></span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <div class="call-chat">
-                                    <button class="btn btn-success text-white btn-circle btn" type="button">
-                                        <i class="fas fa-phone"></i>
-                                    </button>
-                                    <button class="btn btn-info btn-circle btn" type="button">
-                                        <i class="far fa-comments text-white"></i>
-                                    </button>
-                                </div>
-                                <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                        src="plugins/images/users/genu.jpg" alt="user-img" class="img-circle">
-                                    <div class="ms-2">
-                                        <span class="text-dark">Genelia
-                                            Deshmukh <small class="d-block text-warning">Away</small></span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <div class="call-chat">
-                                    <button class="btn btn-success text-white btn-circle btn" type="button">
-                                        <i class="fas fa-phone"></i>
-                                    </button>
-                                    <button class="btn btn-info btn-circle btn" type="button">
-                                        <i class="far fa-comments text-white"></i>
-                                    </button>
-                                </div>
-                                <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                        src="plugins/images/users/ritesh.jpg" alt="user-img" class="img-circle">
-                                    <div class="ms-2">
-                                        <span class="text-dark">Ritesh
-                                            Deshmukh <small class="d-block text-danger">Busy</small></span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <div class="call-chat">
-                                    <button class="btn btn-success text-white btn-circle btn" type="button">
-                                        <i class="fas fa-phone"></i>
-                                    </button>
-                                    <button class="btn btn-info btn-circle btn" type="button">
-                                        <i class="far fa-comments text-white"></i>
-                                    </button>
-                                </div>
-                                <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                        src="plugins/images/users/arijit.jpg" alt="user-img" class="img-circle">
-                                    <div class="ms-2">
-                                        <span class="text-dark">Arijit
-                                            Sinh <small class="d-block text-muted">Offline</small></span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <div class="call-chat">
-                                    <button class="btn btn-success text-white btn-circle btn" type="button">
-                                        <i class="fas fa-phone"></i>
-                                    </button>
-                                    <button class="btn btn-info btn-circle btn" type="button">
-                                        <i class="far fa-comments text-white"></i>
-                                    </button>
-                                </div>
-                                <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                        src="plugins/images/users/govinda.jpg" alt="user-img" class="img-circle">
-                                    <div class="ms-2">
-                                        <span class="text-dark">Govinda
-                                            Star <small class="d-block text-success">online</small></span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <div class="call-chat">
-                                    <button class="btn btn-success text-white btn-circle btn" type="button">
-                                        <i class="fas fa-phone"></i>
-                                    </button>
-                                    <button class="btn btn-info btn-circle btn" type="button">
-                                        <i class="far fa-comments text-white"></i>
-                                    </button>
-                                </div>
-                                <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                        src="plugins/images/users/hritik.jpg" alt="user-img" class="img-circle">
-                                    <div class="ms-2">
-                                        <span class="text-dark">John
-                                            Abraham<small class="d-block text-success">online</small></span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
+        </div>
+        <div class="row">
+            <!-- .col -->
+            <div class="col-lg-12">
+                <div class="white-box">
+                    <div class="table-responsive">
+                        <table class="table table-striped" name="tableData">
+                            <tr>
+                                <th>No.</th>
+                                <th>Nama</th>
+                                <th>Tanggal lahir</th>
+                                <th>No. BPJS</th>
+                                <th>Status peserta bpjs</th>
+                                <th>No. Ktp</th>
+                                <th>Provider</th>
+                                <th>No rekam medis</th>
+                                <th>Aksi</th>
+                            </tr>
+                            @foreach ($datas as $data)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $data->nama }}</td>
+                                <td>{{ $data->tanggal_lahir }}</td>
+                                <td>{{ $data->no_bpjs }}</td>
+                                <td>{{ $data->status_bpjs }}</td>
+                                <td>{{ $data->no_ktp }}</td>
+                                <td>{{ $data->nama_provider }}</td>
+                                <td>{{ $data->no_rekam_medis }}</td>
+                                <td>
+                                    <form action="/destroy/{{ $data->id }}" method="post">
+                                        @csrf
+                                        <button class="btn btn-outline-danger" onclick=" confirm('Apakah anda yakin?') ">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </table>
                     </div>
                 </div>
-            </div> --}}
-            <!-- /.col -->
+            </div>
         </div>
     </div>
     <!-- ============================================================== -->
@@ -259,33 +153,47 @@
     @push('custom-script')
     <script>
         $(document).ready(function () {
-            $('#getDataButton').click(function() {
-                var id = $('#no_bpjs').val();
-                console.log(id)
+            $('#getDataButton').click(function () {
+                $('#tableData tr').html('');
+                const id = $('#no_bpjs').val();
                 $.ajax({
                     method: "GET",
                     url: "/api/bpjs/" + id,
                     dataType: "json",
-                    success: function(data) {
-                        if(data.metaData.code !== 200) {
+                    beforeSend: function () {
+                        if (id == '') {
+                            $('#msgError').html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            Terjadi kesalahan! Pastikan form terisi
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>`);
+                        }
+                    },
+                    success: function (data) {
+                        if (data.metaData.code !== 200) {
                             $('#msgError').html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
                             Terjadi kesalahan! Pastikan nomor BPJS anda benar
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>`);
                         } else {
-                            // $('#msgError').html('');
+                            $('#namaModal').val(data.response.nama);
+                            $('#tglLahirModal').val(data.response.tglLahir);
+                            $('#noBpjsModal').val(data.response.noKartu);
+                            $('#ketAktifModal').val(data.response.ketAktif);
+                            $('#noKtpModal').val(data.response.noKTP);
+                            $('#namaProviderModal').val(data.response.kdProviderPst.nmProvider);
                             $('#tableData tr:last').after(`
                             <tr>
-                                <td>#</td>
-                                <td>${data.response.nama}</td>
-                                <td>${data.response.tglLahir}</td>
-                                <td>${data.response.ketAktif}</td>
-                                <td>${data.response.noKTP}</td>
-                                <td>${data.response.kdProviderPst.nmProvider}</td>
-                                <td>No rekam medis</td>
-                                <td><button class="btn btn-outline-info">Insert</button></td>
+                                <th></th>
+                                <th>${data.response.nama}</th>
+                                <th>${data.response.tglLahir}</th>
+                                <th>${data.response.ketAktif}</th>
+                                <th>${data.response.noKTP}</th>
+                                <th>${data.response.kdProviderPst.nmProvider}</th>
+                                <th><button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Masukkan no. Rekam medis</button></th>
                             </tr>
                             `);
+                            $('#msgError').empty();
+                            $('#getDataForm')[0].reset();
                         }
                     }
                 })

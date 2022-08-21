@@ -16,12 +16,13 @@ return new class extends Migration
         Schema::create('inserts', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->date('tanggal_lahir');
-            $table->integer('no_bpjs');
+            $table->string('tanggal_lahir');
+            $table->bigInteger('no_bpjs');
             $table->string('status_bpjs');
-            $table->integer('nik');           
-            $table->string('nama_provider');           
-            $table->string('no_rekam_medis');           
+            $table->bigInteger('no_ktp')->nullable();           
+            $table->string('nama_provider')->nullable();        
+            $table->string('no_rekam_medis');          
+            $table->timestamps(); 
         });
     }
 
