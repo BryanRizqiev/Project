@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',  [InsertController::class, 'index'])->name('dashboard');
 
 Route::post('/insert', [InsertController::class, 'store']);
+// Route::post('/search', [InsertController::class, 'search']);
 Route::post('/destroy/{id}', [InsertController::class, 'destroy']);
 
 // Route::get('/welcome', function () {

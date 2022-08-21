@@ -108,6 +108,13 @@
             <div class="col-lg-12">
                 <div class="white-box">
                     <div class="table-responsive">
+                        <div class="col-md-4 mb-4 d-flex">
+                            {{-- <form action="/search" method="POST" class="d-flex"> --}}
+                                @csrf
+                                <input type="text" class="form-control" placeholder="Cari nama..." name="search">
+                                <button type="submit" class="btn btn-info ms-3 text-white">Cari</button>
+                            {{-- </form> --}}
+                        </div>
                         <table class="table table-striped" name="tableData">
                             <tr>
                                 <th>No.</th>
@@ -131,9 +138,9 @@
                                 <td>{{ $data->nama_provider }}</td>
                                 <td>{{ $data->no_rekam_medis }}</td>
                                 <td>
-                                    <form action="/destroy/{{ $data->id }}" method="post">
+                                    <form action="/destroy/{{ $data->id }}" method="post" onsubmit=" return confirm('Apakah anda yakin?') ">
                                         @csrf
-                                        <button class="btn btn-outline-danger" onclick=" confirm('Apakah anda yakin?') ">Delete</button>
+                                        <button class="btn btn-outline-danger">Delete</button>
                                     </form>
                                 </td>
                             </tr>

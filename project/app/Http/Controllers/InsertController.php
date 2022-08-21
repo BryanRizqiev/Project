@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Insert;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class InsertController extends Controller
@@ -46,4 +47,10 @@ class InsertController extends Controller
 
         return back();
     }
+
+    // public function search(Request $r)
+    // {
+    //     $datas = DB::table('inserts')->where('nama', 'LIKE', '%' . $r->search . '%');
+    //     return view('pages.dashboard', compact('datas')); 
+    // }
 }

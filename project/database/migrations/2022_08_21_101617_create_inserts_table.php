@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('tanggal_lahir');
-            $table->bigInteger('no_bpjs');
+            $table->string('no_bpjs');
             $table->string('status_bpjs');
             $table->bigInteger('no_ktp')->nullable();           
             $table->string('nama_provider')->nullable();        
