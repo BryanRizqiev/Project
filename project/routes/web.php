@@ -23,22 +23,9 @@ Route::post('/destroy/{id}', [InsertController::class, 'destroy']);
 //     return view('welcome');
 // })->name('welcome');
 
-
 // Route::get('/profile', function () {
 //     return view('pages.profile');
 // })->name('profile');
-
-// Route::get('/basic-table', function () {
-//     return view('pages.basic-table');
-// })->name('basic-table');
-
-// Route::get('/icons', function () {
-//     return view('pages.fontawesome');
-// })->name('icons');
-
-// Route::get('/google-map', function () {
-//     return view('pages.map-google');
-// })->name('google-map');
 
 // Route::get('/blank-page', function () {
 //     return view('pages.blank');
