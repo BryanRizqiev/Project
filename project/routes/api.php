@@ -17,3 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/bpjs/{id}', function ($id) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "http://kkn.lp2m.unpkediri.ac.id/laporan/2015/api/bpjs.php?nobpjs=" . $id);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($ch);
+    curl_close($ch);
+    return $response;
+});

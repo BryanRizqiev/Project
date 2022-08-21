@@ -16,7 +16,7 @@
             <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                 <div class="d-md-flex">
                     <ol class="breadcrumb ms-auto">
-                        <li><a href="#" class="fw-normal">YNTKTS</a></li>
+                        <li><a href="#" class="fw-normal">Dashboard</a></li>
                     </ol>
                 </div>
             </div>
@@ -75,37 +75,63 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card white-box p-0">
+                    <div class="card-body">
+                        <h3 class="box-title">Get Data BPJS</h3>
+                        <div id="msgError"></div>
+                        <form id="getDataForm" class="form-inline">
+                            <div class="input-group">
+                                <input type="number" name="no_bpjs" id="no_bpjs" class="form-control"
+                                    placeholder="No BPJS">
+                                {{-- <input type="text" class="form-control" placeholder="No Rekam Medis"> --}}
+                                <button type="button" name="getDataButton" id="getDataButton"
+                                    class="btn btn-primary">Get
+                                    Data</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- ============================================================== -->
         <!-- Recent Comments -->
         <!-- ============================================================== -->
         <div class="row">
             <!-- .col -->
-            <div class="">
-                <table class="table table-striped">
-                    <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Tanggal lahir</th>
-                        <th>Status peserta bpjs</th>
-                        <th>NIK</th>
-                        <th>Provider</th>
-                        <th>No rekam medis</th>
-                        <th>Aksi</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Ahmed Dzaki Sandy</td>
-                        <td>Tanggal lahir</td>
-                        <td>Status peserta bpjs</td>
-                        <td>NIK</td>
-                        <td>Provider</td>
-                        <td>No rekam medis</td>
-                        <td>
-                            <button class="btn btn-outline-info">Insert</button>
-                        </td>
-                    </tr>
+            <div class="col-lg-12">
+                <div class="white-box">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="tableData" name="tableData">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Tanggal lahir</th>
+                                <th>Status peserta bpjs</th>
+                                <th>NIK</th>
+                                <th>Provider</th>
+                                <th>No rekam medis</th>
+                                <th>Aksi</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Ahmed Dzaki Sandy</td>
+                                <td>Tanggal lahir</td>
+                                <td>Status peserta bpjs</td>
+                                <td>NIK</td>
+                                <td>Provider</td>
+                                <td>No rekam medis</td>
+                                <td>
+                                    <button class="btn btn-outline-info">Insert</button>
+                                </td>
+                            </tr>
 
-                </table>
+                        </table>
+                    </div>
+                </div>
             </div>
             {{-- <div class="col-lg-4 col-md-12 col-sm-12">
                 <div class="card white-box p-0">
@@ -229,3 +255,41 @@
     <!-- ============================================================== -->
 
     @endsection
+
+    @push('custom-script')
+    <script>
+        $(document).ready(function () {
+            $('#getDataButton').click(function() {
+                var id = $('#no_bpjs').val();
+                console.log(id)
+                $.ajax({
+                    method: "GET",
+                    url: "/api/bpjs/" + id,
+                    dataType: "json",
+                    success: function(data) {
+                        if(data.metaData.code !== 200) {
+                            $('#msgError').html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            Terjadi kesalahan! Pastikan nomor BPJS anda benar
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>`);
+                        } else {
+                            // $('#msgError').html('');
+                            $('#tableData tr:last').after(`
+                            <tr>
+                                <td>#</td>
+                                <td>${data.response.nama}</td>
+                                <td>${data.response.tglLahir}</td>
+                                <td>${data.response.ketAktif}</td>
+                                <td>${data.response.noKTP}</td>
+                                <td>${data.response.kdProviderPst.nmProvider}</td>
+                                <td>No rekam medis</td>
+                                <td><button class="btn btn-outline-info">Insert</button></td>
+                            </tr>
+                            `);
+                        }
+                    }
+                })
+            });
+        });
+    </script>
+    @endpush
