@@ -42,7 +42,7 @@
             <div class="col-lg-4 col-md-12">
 
                 <div class="white-box analytics-info">
-                    <h3 class="box-title">Jumlah pasien yang dicek</h3>
+                    <h3 class="box-title">Jumlah Semua Pasien</h3>
                     <ul class="list-inline two-part d-flex align-items-center mb-0">
                         <li>
                             <div id="sparklinedash"><canvas width="67" height="30"
@@ -55,7 +55,7 @@
             </div>
             <div class="col-lg-4 col-md-12">
                 <div class="white-box analytics-info">
-                    <h3 class="box-title">Jumlah pasien aktif</h3>
+                    <h3 class="box-title">Jumlah Pasien Aktif</h3>
                     <ul class="list-inline two-part d-flex align-items-center mb-0">
                         <li>
                             <div id="sparklinedash2"><canvas width="67" height="30"
@@ -68,7 +68,7 @@
             </div>
             <div class="col-lg-4 col-md-12">
                 <div class="white-box analytics-info">
-                    <h3 class="box-title">Jumlah pasien nonaktif</h3>
+                    <h3 class="box-title">Jumlah Pasien Nonaktif</h3>
                     <ul class="list-inline two-part d-flex align-items-center mb-0">
                         <li>
                             <div id="sparklinedash3"><canvas width="67" height="30"

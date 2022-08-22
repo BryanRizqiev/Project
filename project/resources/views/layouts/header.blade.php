@@ -48,10 +48,10 @@
                     <!-- ============================================================== -->
                     <a class="navbar-brand" href="#">
                         <!-- Logo icon -->
-                        <b class="logo-icon">
+                        {{-- <b class="logo-icon">
                             <!-- Dark Logo icon -->
-                            {{-- <img src="{{ asset('plugins/images/logo-icon.png') }}" alt="homepage" /> --}}
-                        </b>
+                            <img src="{{ asset('plugins/images/logo-icon.png') }}" alt="homepage" />
+                        </b> --}}
                         <!--End Logo icon -->
                         <!-- Logo text -->
 
@@ -82,9 +82,8 @@
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
                         <li>
                             <a class="profile-pic" href="#">
-                                <img src="https://i.pinimg.com/originals/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg"
-                                    alt="user-img" width="36" class="img-circle"><span
-                                    class="text-white font-medium">Ari</span></a>
+                                <img src="{{ asset('plugins/images/users/icon-user.png') }}" alt="user-img" width="36"
+                                    class="img-circle"><span class="text-white font-medium">User</span></a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
