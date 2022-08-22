@@ -6,7 +6,6 @@ use App\Models\Insert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class InsertController extends Controller
@@ -108,7 +107,15 @@ class InsertController extends Controller
 
     public function update(Request $r)
     {
-        return 'Hello mom';
+        try {
+            $data = Insert::findOrFail($r->id);
+            $data->no_rekam_medis = $r->no_rekam_medis;
+            $data->save();
+        } catch (Throwable $th) {
+            return back()->with('fail', 'Gagal diupdate');
+        }
+
+        return back()->with('success', 'Berhasil diupdate');
     }
 
     public function statistic()

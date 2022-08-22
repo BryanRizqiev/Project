@@ -8,7 +8,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Add Data</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Tambah Data</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -25,7 +25,6 @@
                         <input type="text" class="form-control" name="no_rekam_medis" placeholder="No Rekam Medis"
                             required>
                     </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -37,30 +36,31 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Update No Rekam Medis</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/update" method="POST">
+                    @csrf
+                    <input type="hidden" name="id" id="idForUpdate">
+                    <div class="form-group mt-3">
+                        <input type="text" class="form-control" name="no_rekam_medis" placeholder="No Rekam Medis"
+                            id="no_rekam_medis_for_update" required>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
         </div>
-        <div class="modal-body">
-            <form action="/update" method="POST">
-                @csrf
-                <input type="hidden" name="id" id="idForUpdate">
-                <div class="form-group mt-3">
-                    <input type="text" class="form-control" name="no_rekam_medis" placeholder="No Rekam Medis" id="no_rekam_medis_for_update" required>
-                </div>
-                <button type="submit" class="btn btn-success text-white">Submit</button>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Understood</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
 <!-- ============================================================== -->
 <!-- Page wrapper  -->
@@ -112,7 +112,7 @@
                         <form id="getDataForm" class="form-inline">
                             <div class="input-group">
                                 <input type="text" name="no_bpjs" id="no_bpjs" class="form-control"
-                                    placeholder="No BPJS">
+                                    placeholder="No. BPJS">
                                 {{-- <input type="text" class="form-control" placeholder="No Rekam Medis"> --}}
                                 <button type="button" name="getDataButton" id="getDataButton"
                                     class="btn btn-primary">Get
@@ -183,7 +183,9 @@
                                         @csrf
                                         <button class="btn btn-outline-danger">Delete</button>
                                     </form>
-                                        <button class="btn btn-outline-warning mt-1" data-id="{{ $data->id }}" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Update</button>
+                                    <button class="btn btn-outline-warning mt-1" data-id="{{ $data->id }}"
+                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
+                                        id="update-button">Update</button>
                                 </td>
                             </tr>
                             @endforeach
@@ -249,6 +251,11 @@
                         }
                     }
                 })
+            });
+
+            $('#update-button').on('click', function () {
+                let id = $(this).data('id')
+                $('#idForUpdate').val(id)
             });
         });
     </script>
