@@ -17,6 +17,7 @@
                     <input type="hidden" id="namaModal" name="nama">
                     <input type="hidden" id="tglLahirModal" name="tanggal_lahir">
                     <input type="hidden" id="noBpjsModal" name="no_bpjs">
+                    <input type="hidden" id="aktifModal" name="aktif">
                     <input type="hidden" id="ketAktifModal" name="status_bpjs">
                     <input type="hidden" id="noKtpModal" name="no_ktp">
                     <input type="hidden" id="namaProviderModal" name="nama_provider">
@@ -188,6 +189,7 @@
                             $('#namaModal').val(data.response.nama);
                             $('#tglLahirModal').val(data.response.tglLahir);
                             $('#noBpjsModal').val(data.response.noKartu);
+                            $('#aktifModal').val(data.response.aktif);
                             $('#ketAktifModal').val(data.response.ketAktif);
                             $('#noKtpModal').val(data.response.noKTP);
                             $('#namaProviderModal').val(data.response.kdProviderPst
