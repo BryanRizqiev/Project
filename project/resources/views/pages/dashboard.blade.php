@@ -109,11 +109,11 @@
                 <div class="white-box">
                     <div class="table-responsive">
                         <div class="col-md-4 mb-4 d-flex">
-                            {{-- <form action="/search" method="POST" class="d-flex"> --}}
-                            @csrf
+                            <form action="/" method="GET" class="d-flex">
                             <input type="text" class="form-control" placeholder="Cari nama..." name="search">
-                            <button type="submit" class="btn btn-info ms-3 text-white">Cari</button>
-                            {{-- </form> --}}
+                            <button type="submit" class="btn btn-info ms-2 text-white">Cari</button>
+                            </form>
+                            <a href="/" class="btn btn-success ms-1 text-white">Reload</a>
                         </div>
                         <table class="table table-striped" name="tableData">
                             <tr>
@@ -129,7 +129,7 @@
                             </tr>
                             @foreach ($datas as $data)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ ($datas->currentpage()-1) * $datas->perpage() + $loop->index + 1 }}</td>
                                 <td>{{ $data->nama }}</td>
                                 <td>{{ $data->tanggal_lahir }}</td>
                                 <td>{{ $data->no_bpjs }}</td>
@@ -146,6 +146,7 @@
                             </tr>
                             @endforeach
                         </table>
+                        {{ $datas->links() }}
                     </div>
                 </div>
             </div>

@@ -24,13 +24,11 @@ Route::post('/destroy/{id}', [InsertController::class, 'destroy']);
 //     return view('welcome');
 // })->name('welcome');
 
-// Route::get('/profile', function () {
-//     return view('pages.profile');
-// })->name('profile');
+Route::get('/profile', [InsertController::class, 'statistic'])->name('statistic');
 
-// Route::get('/blank-page', function () {
-//     return view('pages.blank');
-// })->name('blank-page');
+Route::get('/blank-page', function () {
+    return view('pages.blank');
+})->name('blank-page');
 
 // Route::get('/404', function () {
 //     return view('pages.404');

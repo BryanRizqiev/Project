@@ -17,7 +17,12 @@ class InsertController extends Controller
      */
     public function index()
     {
-        $datas = Insert::all();
+        if (request('search')) {
+            $src = '%' . trim(strtolower(request('search'))) . '%';
+            $datas = DB::table('inserts')->where('nama', 'like', $src)->paginate(25);
+        } else {
+            $datas = DB::table('inserts')->paginate(25);
+        }
         return view('pages.dashboard', compact('datas')); 
     }
 
@@ -53,4 +58,15 @@ class InsertController extends Controller
     //     $datas = DB::table('inserts')->where('nama', 'LIKE', '%' . $r->search . '%');
     //     return view('pages.dashboard', compact('datas')); 
     // }
+
+    public function statistic()
+    {
+        $datas = DB::table('inserts')->get();
+        
+        return view('pages.profile', [
+            'count' => $datas->count(),
+            'active' => $datas->where('status_bpjs', 'AKTIF')->count(),
+            'nonactive' => $datas->where('status_bpjs', 'NONAKTIF')->count(),
+        ]);
+    }
 }
