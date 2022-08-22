@@ -51,8 +51,7 @@ class InsertController extends Controller
 
     public function store(Request $r)
     {
-        // dd(filter_var($r->aktif, FILTER_VALIDATE_BOOLEAN));
-        // try {            
+        try {            
             $r->validate([
                 'no_bpjs' => ['unique:inserts']
             ]);
@@ -66,9 +65,9 @@ class InsertController extends Controller
                 'nama_provider' => $r->nama_provider,
                 'no_rekam_medis' => $r->no_rekam_medis
             ]);
-        // } catch (Throwable $th) {
-        //     return back();
-        // }
+        } catch (Throwable $th) {
+            return back();
+        }
 
         return back();
     }
@@ -83,24 +82,24 @@ class InsertController extends Controller
 
     public function updateAllData()
     {
-        $datas = Insert::all(['no_bpjs']);
-        Log::info('Start');
+        $datas = DB::table('inserts')->get(['id', 'no_bpjs']);
+        // Log::info('Start');
         foreach ($datas as $data) {
             try {
-                Log::info('Endpoint start');
+                // Log::info('Endpoint start');
                 $result = Http::get('http://kkn.lp2m.unpkediri.ac.id/laporan/2015/api/bpjs.php?nobpjs=' . $data->no_bpjs);
-                Log::info('Endpoint end');
-                // Log::info($result['response']['aktif']);
+                // Log::info('Endpoint end');
             } catch (Throwable $th) {
                 return back();
             }
-            Log::info('Store db');
-            $data->no_bpjs = $result['response']['noKartu'];
-            $data->save();
-            Log::info('Success');
+            // Log::info('Store db');
+            $dataUpdate = Insert::findOrFail($data->id);
+            $dataUpdate->aktif = $result['response']['aktif'];
+            $dataUpdate->save();
+            // Log::info('Success');
         }
-        Log::info('End');
-        return dd('ye');
+        // Log::info('End');
+        return back();
     }
 
     public function statistic()
