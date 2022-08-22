@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('tanggal_lahir');
             $table->string('no_bpjs');
             $table->string('status_bpjs');
+            $table->boolean('aktif');
             $table->bigInteger('no_ktp')->nullable();           
             $table->string('nama_provider')->nullable();        
             $table->string('no_rekam_medis');          

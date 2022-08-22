@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Insert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class InsertController extends Controller
@@ -49,19 +51,24 @@ class InsertController extends Controller
 
     public function store(Request $r)
     {
-        try {            
+        // dd(filter_var($r->aktif, FILTER_VALIDATE_BOOLEAN));
+        // try {            
+            $r->validate([
+                'no_bpjs' => ['unique:inserts']
+            ]);
             Insert::create([
                 'nama' => $r->nama,
                 'tanggal_lahir' => $r->tanggal_lahir,
                 'no_bpjs' => $r->no_bpjs,
+                'aktif' => filter_var($r->aktif, FILTER_VALIDATE_BOOLEAN),
                 'status_bpjs' => $r->status_bpjs,
                 'no_ktp' => $r->no_ktp,
                 'nama_provider' => $r->nama_provider,
                 'no_rekam_medis' => $r->no_rekam_medis
             ]);
-        } catch (Throwable $th) {
-            return back();
-        }
+        // } catch (Throwable $th) {
+        //     return back();
+        // }
 
         return back();
     }
@@ -74,11 +81,27 @@ class InsertController extends Controller
         return back();
     }
 
-    // public function search(Request $r)
-    // {
-    //     $datas = DB::table('inserts')->where('nama', 'LIKE', '%' . $r->search . '%');
-    //     return view('pages.dashboard', compact('datas')); 
-    // }
+    public function updateAllData()
+    {
+        $datas = Insert::all(['no_bpjs']);
+        Log::info('Start');
+        foreach ($datas as $data) {
+            try {
+                Log::info('Endpoint start');
+                $result = Http::get('http://kkn.lp2m.unpkediri.ac.id/laporan/2015/api/bpjs.php?nobpjs=' . $data->no_bpjs);
+                Log::info('Endpoint end');
+                // Log::info($result['response']['aktif']);
+            } catch (Throwable $th) {
+                return back();
+            }
+            Log::info('Store db');
+            $data->no_bpjs = $result['response']['noKartu'];
+            $data->save();
+            Log::info('Success');
+        }
+        Log::info('End');
+        return dd('ye');
+    }
 
     public function statistic()
     {
@@ -86,8 +109,8 @@ class InsertController extends Controller
         
         return view('pages.profile', [
             'count' => $datas->count(),
-            'active' => $datas->where('status_bpjs', 'AKTIF')->count(),
-            'nonactive' => $datas->where('status_bpjs', 'NONAKTIF')->count(),
+            'active' => $datas->where('aktif', true)->count(),
+            'nonactive' => $datas->where('aktif', false)->count(),
         ]);
     }
 }

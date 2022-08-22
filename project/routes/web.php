@@ -26,6 +26,8 @@ Route::post('/destroy/{id}', [InsertController::class, 'destroy']);
 
 Route::get('/profile', [InsertController::class, 'statistic'])->name('statistic');
 
+Route::post('/updateAll', [InsertController::class, 'updateAllData']);
+
 Route::get('/blank-page', function () {
     return view('pages.blank');
 })->name('blank-page');
