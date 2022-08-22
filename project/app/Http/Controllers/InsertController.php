@@ -66,10 +66,10 @@ class InsertController extends Controller
                 'no_rekam_medis' => $r->no_rekam_medis
             ]);
         } catch (Throwable $th) {
-            return back();
+            return back()->with('fail', 'Gagal ditambahkan');
         }
 
-        return back();
+        return back()->with('success', 'Berhasil ditambahkan');
     }
 
     public function destroy($id)
@@ -90,7 +90,9 @@ class InsertController extends Controller
                 $result = Http::get('http://kkn.lp2m.unpkediri.ac.id/laporan/2015/api/bpjs.php?nobpjs=' . $data->no_bpjs);
                 // Log::info('Endpoint end');
             } catch (Throwable $th) {
-                return back();
+                return response()->json([
+                    'success' => false 
+                ], 400);
             }
             // Log::info('Store db');
             $dataUpdate = Insert::findOrFail($data->id);
@@ -99,7 +101,14 @@ class InsertController extends Controller
             // Log::info('Success');
         }
         // Log::info('End');
-        return back();
+        return response()->json([
+            'success' => true 
+        ], 200);
+    }
+
+    public function update(Request $r)
+    {
+        return 'Hello mom';
     }
 
     public function statistic()

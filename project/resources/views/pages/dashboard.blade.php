@@ -36,6 +36,32 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="/update" method="POST">
+                @csrf
+                <input type="hidden" name="id" id="idForUpdate">
+                <div class="form-group mt-3">
+                    <input type="text" class="form-control" name="no_rekam_medis" placeholder="No Rekam Medis" id="no_rekam_medis_for_update" required>
+                </div>
+                <button type="submit" class="btn btn-success text-white">Submit</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Understood</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <!-- ============================================================== -->
 <!-- Page wrapper  -->
 <!-- ============================================================== -->
@@ -64,12 +90,24 @@
     <!-- ============================================================== -->
     <!-- Container fluid  -->
     <!-- ============================================================== -->
+    @if (session()->has('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+    @if (session()->has('fail'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('fail') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card white-box p-0">
                     <div class="card-body">
-                        <h3 class="box-title">Get Data BPJS</h3>
+                        <h3 class="box-title">Cari Data BPJS</h3>
                         <div id="msgError"></div>
                         <form id="getDataForm" class="form-inline">
                             <div class="input-group">
@@ -140,11 +178,12 @@
                                 <td>{{ $data->nama_provider }}</td>
                                 <td>{{ $data->no_rekam_medis }}</td>
                                 <td>
-                                    <form action="/destroy/{{ $data->id }}" method="post"
+                                    <form action="/destroy/{{ $data->id }}" method="POST"
                                         onsubmit=" return confirm('Apakah anda yakin?') ">
                                         @csrf
                                         <button class="btn btn-outline-danger">Delete</button>
                                     </form>
+                                        <button class="btn btn-outline-warning mt-1" data-id="{{ $data->id }}" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Update</button>
                                 </td>
                             </tr>
                             @endforeach
