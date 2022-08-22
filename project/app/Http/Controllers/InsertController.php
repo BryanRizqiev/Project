@@ -15,14 +15,35 @@ class InsertController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $r)
     {
-        if (request('search')) {
-            $src = '%' . trim(strtolower(request('search'))) . '%';
-            $datas = DB::table('inserts')->where('nama', 'like', $src)->paginate(25);
+        $datas = DB::table('inserts');
+        if (!$r->search == '' || !$r->search_rm == '') {
+            if($r->search_rm  == '') {
+                $src = '%' . trim(strtolower($r->search)) . '%';
+                $datas = DB::table('inserts')->where('nama', 'like', $src)
+                    ->paginate(25);
+            }
+            if($r->search != '' && $r->search_rm != '') {
+                $src = '%' . trim(strtolower($r->search)) . '%';
+                $datas = DB::table('inserts')->where('nama', 'like', $src)->where('no_rekam_medis', $r->search_rm)
+                    ->paginate(25);
+            }
+            if($r->search  == '') {
+                $datas = DB::table('inserts')->where('no_rekam_medis', $r->search_rm)
+                    ->paginate(25);
+            }
         } else {
             $datas = DB::table('inserts')->paginate(25);
         }
+
+        // $datas->paginate(3);
+        // if (request('search')) {
+        //     $src = '%' . trim(strtolower(request('search'))) . '%';
+        //     $datas = DB::table('inserts')->where('nama', 'like', $src)->paginate(25);
+        // } else {
+        //     $datas = DB::table('inserts')->paginate(25);
+        // }
         return view('pages.dashboard', compact('datas')); 
     }
 
