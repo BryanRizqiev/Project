@@ -22,16 +22,16 @@ class InsertController extends Controller
             if($r->search_rm  == '') {
                 $src = '%' . trim(strtolower($r->search)) . '%';
                 $datas = DB::table('inserts')->where('nama', 'like', $src)
-                    ->paginate(25);
+                    ->paginate(15);
             }
             if($r->search != '' && $r->search_rm != '') {
                 $src = '%' . trim(strtolower($r->search)) . '%';
                 $datas = DB::table('inserts')->where('nama', 'like', $src)->where('no_rekam_medis', $r->search_rm)
-                    ->paginate(25);
+                    ->paginate(15);
             }
             if($r->search  == '') {
                 $datas = DB::table('inserts')->where('no_rekam_medis', $r->search_rm)
-                    ->paginate(25);
+                    ->paginate(15);
             }
         } else {
             $datas = DB::table('inserts')->paginate(25);
