@@ -11,8 +11,7 @@
     <meta name="description"
         content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>Ample Admin Lite Template by WrapPixel</title>
-    <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
+    <title>Aplikasi Rekam Medis BPJS</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('plugins/images/favicon.png') }}">
     <!-- Custom CSS -->
@@ -51,13 +50,16 @@
                         <!-- Logo icon -->
                         <b class="logo-icon">
                             <!-- Dark Logo icon -->
-                            <img src="{{ asset('plugins/images/logo-icon.png') }}" alt="homepage" />
+                            {{-- <img src="{{ asset('plugins/images/logo-icon.png') }}" alt="homepage" /> --}}
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
+
                         <span class="logo-text">
                             <!-- dark Logo text -->
-                            <img src="{{ asset('plugins/images/logo-text.png') }}" alt="homepage" />
+                            <span class="text-dark text-uppercase"><b>Aplikasi Rekam Medis</b></span>
+
+                            {{-- <img src="{{ asset('plugins/images/logo-text.png') }}" alt="homepage" /> --}}
                         </span>
                     </a>
                     <!-- ============================================================== -->
@@ -78,25 +80,11 @@
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
-
-                        <!-- ============================================================== -->
-                        <!-- Search -->
-                        <!-- ============================================================== -->
-                        {{-- <li class=" in">
-                            <form role="search" class="app-search d-none d-md-block me-3">
-                                <input type="text" placeholder="Search..." class="form-control mt-0">
-                                <a href="" class="active">
-                                    <i class="fa fa-search"></i>
-                                </a>
-                            </form>
-                        </li> --}}
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
                         <li>
                             <a class="profile-pic" href="#">
-                                <img src="{{ asset('plugins/images/users/varun.jpg') }}" alt="user-img" width="36"
-                                    class="img-circle"><span class="text-white font-medium">Ari</span></a>
+                                <img src="https://i.pinimg.com/originals/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg"
+                                    alt="user-img" width="36" class="img-circle"><span
+                                    class="text-white font-medium">Ari</span></a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->

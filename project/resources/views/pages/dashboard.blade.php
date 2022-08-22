@@ -110,9 +110,9 @@
                     <div class="table-responsive">
                         <div class="col-md-4 mb-4 d-flex">
                             <form action="/" method="GET" class="d-flex">
-                            <input type="text" class="form-control" placeholder="Cari nama..." name="search">
-                            <input type="text" class="form-control" placeholder="Cari no_rm..." name="search_rm">
-                            <button type="submit" class="btn btn-info ms-2 text-white">Cari</button>
+                                <input type="text" class="form-control" placeholder="Cari nama..." name="search">
+                                <input type="text" class="form-control" placeholder="Cari no_rm..." name="search_rm">
+                                <button type="submit" class="btn btn-info ms-2 text-white">Cari</button>
                             </form>
                             <a href="/" class="btn btn-success ms-1 text-white">Reload</a>
                         </div>
@@ -141,6 +141,7 @@
                                 <td>
                                     <form action="/destroy/{{ $data->id }}" method="post"
                                         onsubmit=" return confirm('Apakah anda yakin?') ">
+                                        @csrf
                                         <button class="btn btn-outline-danger">Delete</button>
                                     </form>
                                 </td>
