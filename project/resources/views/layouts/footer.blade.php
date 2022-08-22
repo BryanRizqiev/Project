@@ -2,7 +2,7 @@
 <!-- footer -->
 <!-- ============================================================== -->
 <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a
-                href="https://www.wrappixel.com/">wrappixel.com</a>
+        href="https://www.wrappixel.com/">wrappixel.com</a>
 </footer>
 <!-- ============================================================== -->
 <!-- End footer -->
@@ -36,6 +36,7 @@
 </script>
 <script src="{{ asset('js/pages/dashboards/dashboard1.js') }}"></script> --}}
 @stack('custom-script')
+@stack('update')
 </body>
 
 </html>

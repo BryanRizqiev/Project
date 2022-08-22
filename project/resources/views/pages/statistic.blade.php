@@ -11,15 +11,19 @@
     <div class="page-breadcrumb bg-white">
         <div class="row align-items-center">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="page-title">Profile page</h4>
+                <h4 class="page-title">Halaman Statistik</h4>
             </div>
+
             <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                 <div class="d-md-flex">
                     <ol class="breadcrumb ms-auto">
                     </ol>
-                    <form action="/updateAll" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-success d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Update semua data</button>
+                    <form id="updateForm">
+                        <button type="button" id="updateButton" name="updateButton"
+                            class="btn btn-primary d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Update
+                            semua data
+                            <span class="spinner-border text-primary spinner-border-sm d-none" id="loading"
+                                role="status" aria-hidden="true"></span></button>
                     </form>
                 </div>
             </div>
@@ -34,7 +38,9 @@
     <!-- ============================================================== -->
     <div class="container-fluid">
         <div class="row justify-content-center">
+            <div id="alertMsg"></div>
             <div class="col-lg-4 col-md-12">
+
                 <div class="white-box analytics-info">
                     <h3 class="box-title">Jumlah pasien yang dicek</h3>
                     <ul class="list-inline two-part d-flex align-items-center mb-0">
@@ -80,3 +86,40 @@
     <!-- End Container fluid  -->
     <!-- ============================================================== -->
     @endsection
+
+    @push('update')
+    <script>
+        $(document).ready(function () {
+            $('#updateButton').click(function () {
+                $.ajax({
+                    method: "POST",
+                    url: "/updateAll",
+                    data: "_token={{ csrf_token() }}",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        $('#loading').removeClass('d-none');
+                        $('#updateButton').attr('disabled', true);
+                    },
+                    success: function (data) {
+                        if(data.success) {
+                            $('#alertMsg').html(`
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Berhasil update data
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>`);
+                        } else {
+                            $('#alertMsg').html(`
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            Gagal update data
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>`);
+                        }
+                        $('#loading').addClass('d-none');
+                        $('#updateButton').attr('disabled', false);
+                    }
+                })
+            })
+        });
+
+    </script>
+    @endpush
