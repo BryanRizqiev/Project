@@ -21,17 +21,17 @@ class InsertController extends Controller
     {
         $datas = DB::table('inserts');
         if (!$r->search == '' || !$r->search_rm == '') {
-            if($r->search_rm  == '') {
+            if ($r->search_rm  == '') {
                 $src = '%' . trim(strtolower($r->search)) . '%';
                 $datas = DB::table('inserts')->where('nama', 'like', $src)
                     ->paginate(15);
             }
-            if($r->search != '' && $r->search_rm != '') {
+            if ($r->search != '' && $r->search_rm != '') {
                 $src = '%' . trim(strtolower($r->search)) . '%';
                 $datas = DB::table('inserts')->where('nama', 'like', $src)->where('no_rekam_medis', $r->search_rm)
                     ->paginate(15);
             }
-            if($r->search  == '') {
+            if ($r->search  == '') {
                 $datas = DB::table('inserts')->where('no_rekam_medis', $r->search_rm)
                     ->paginate(15);
             }
@@ -46,12 +46,12 @@ class InsertController extends Controller
         // } else {
         //     $datas = DB::table('inserts')->paginate(25);
         // }
-        return view('pages.dashboard', compact('datas')); 
+        return view('pages.dashboard', compact('datas'));
     }
 
     public function store(Request $r)
     {
-        try {            
+        try {
             $r->validate([
                 'no_bpjs' => ['unique:inserts']
             ]);
@@ -90,7 +90,9 @@ class InsertController extends Controller
                 $result = Http::get('http://kkn.lp2m.unpkediri.ac.id/laporan/2015/api/bpjs.php?nobpjs=' . $data->no_bpjs);
                 // Log::info('Endpoint end');
             } catch (Throwable $th) {
-                return back();
+                return response()->json([
+                    'success' => false
+                ], 400);
             }
             // Log::info('Store db');
             $dataUpdate = Insert::findOrFail($data->id);
@@ -99,14 +101,16 @@ class InsertController extends Controller
             // Log::info('Success');
         }
         // Log::info('End');
-        return back();
+        return response()->json([
+            'success' => true
+        ], 200);
     }
 
     public function statistic()
     {
         $datas = DB::table('inserts')->get();
-        
-        return view('pages.profile', [
+
+        return view('pages.statistic', [
             'count' => $datas->count(),
             'active' => $datas->where('aktif', true)->count(),
             'nonactive' => $datas->where('aktif', false)->count(),

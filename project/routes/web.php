@@ -24,7 +24,7 @@ Route::post('/destroy/{id}', [InsertController::class, 'destroy']);
 //     return view('welcome');
 // })->name('welcome');
 
-Route::get('/profile', [InsertController::class, 'statistic'])->name('statistic');
+Route::get('/statistik', [InsertController::class, 'statistic'])->name('statistic');
 
 Route::post('/updateAll', [InsertController::class, 'updateAllData']);
 

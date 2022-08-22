@@ -170,7 +170,7 @@
                 $.ajax({
                     method: "GET",
                     url: "/api/bpjs/" + id,
-                    dataType: "json",
+                    dataType: "JSON",
                     beforeSend: function () {
                         if (id == '') {
                             $('#msgError').html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
