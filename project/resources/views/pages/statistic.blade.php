@@ -110,7 +110,7 @@
                         } else {
                             $('#alertMsg').html(`
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            Gagal update data
+                            Gagal
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>`);
                         }
