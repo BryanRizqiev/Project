@@ -1,8 +1,10 @@
 <!-- ============================================================== -->
 <!-- footer -->
 <!-- ============================================================== -->
-<footer class="footer text-center"> 2021 © Ample Admin brought to you by <a
-        href="https://www.wrappixel.com/">wrappixel.com</a>
+<footer class="footer text-center">
+        <script>
+                document.write(new Date().getFullYear());
+        </script> © Ample Admin brought to you by <a href="https://www.wrappixel.com/">wrappixel.com</a>
 </footer>
 <!-- ============================================================== -->
 <!-- End footer -->
@@ -30,11 +32,6 @@
 <!--Custom JavaScript -->
 <script src="{{ asset('js/custom.js') }}"></script>
 <!--This page JavaScript -->
-<!--chartis chart-->
-{{-- <script src="{{ asset('plugins/bower_components/chartist/dist/chartist.min.js') }}"></script>
-<script src="{{ asset('plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') }}">
-</script>
-<script src="{{ asset('js/pages/dashboards/dashboard1.js') }}"></script> --}}
 @stack('custom-script')
 @stack('update')
 </body>

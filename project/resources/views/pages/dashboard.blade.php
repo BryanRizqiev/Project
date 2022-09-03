@@ -90,21 +90,22 @@
     <!-- ============================================================== -->
     <!-- Container fluid  -->
     <!-- ============================================================== -->
-    @if (session()->has('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
-    @if (session()->has('fail'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        {{ session('fail') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
+                @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                @if (session()->has('fail'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('fail') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
                 <div class="card white-box p-0">
                     <div class="card-body">
                         <h3 class="box-title">Cari Data BPJS</h3>
@@ -113,10 +114,8 @@
                             <div class="input-group">
                                 <input type="text" name="no_bpjs" id="no_bpjs" class="form-control"
                                     placeholder="No. BPJS">
-                                {{-- <input type="text" class="form-control" placeholder="No Rekam Medis"> --}}
                                 <button type="button" name="getDataButton" id="getDataButton"
-                                    class="btn btn-primary">Get
-                                    Data</button>
+                                    class="btn btn-primary">Cari Data</button>
                             </div>
                         </form>
                     </div>
@@ -161,10 +160,10 @@
                                 <th>Nama</th>
                                 <th>Tanggal lahir</th>
                                 <th>No. BPJS</th>
-                                <th>Status peserta bpjs</th>
+                                <th>Status</th>
                                 <th>No. Ktp</th>
                                 <th>Provider</th>
-                                <th>No rekam medis</th>
+                                <th>No. Rekam Medis</th>
                                 <th>Aksi</th>
                             </tr>
                             @foreach ($datas as $data)
@@ -243,7 +242,7 @@
                                 <th>${data.response.ketAktif}</th>
                                 <th>${data.response.noKTP}</th>
                                 <th>${data.response.kdProviderPst.nmProvider}</th>
-                                <th><button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Masukkan no. Rekam medis</button></th>
+                                <th><button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Masukkan No. Rekam Medis</button></th>
                             </tr>
                             `);
                             $('#msgError').empty();
